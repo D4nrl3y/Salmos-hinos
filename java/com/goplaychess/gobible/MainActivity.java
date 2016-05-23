@@ -1,6 +1,7 @@
 package com.goplaychess.gobible;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -43,6 +45,22 @@ public class MainActivity extends AppCompatActivity{
 
         ArrayList<String> items = new ArrayList<String>();
         ArrayList<String> sortedItems = new ArrayList<>();
+
+        //dynamically adding books into arrayList
+//        AssetManager aMan = getApplicationContext().getAssets();
+//        String[] listOfFiles = null;
+//        try {
+//            listOfFiles = aMan.list("");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        for (int i = 0; i < listOfFiles.length; i++) {
+
+//            sortedItems.add(listOfFiles[i]);
+//       }
+
+        //constructing non alphabetically order of books
         items.add("Genesis");
         items.add("Exodus");
         items.add("Leviticus");
@@ -68,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
         items.add("Proverbs");
 
         items.add("Ecclesiastes");
-        items.add("Song of Songs");
+        items.add("Song of Solomon");
         items.add("Isaiah");
         items.add("Jeremiah");
         items.add("Lamentations");
@@ -96,7 +114,7 @@ public class MainActivity extends AppCompatActivity{
         items.add("Mark");
         items.add("Luke");
         items.add("John");
-        items.add("Acts");
+        items.add("Acts of the Apostles");
         items.add("Romans");
 
         items.add("1 Corinthians");
@@ -130,6 +148,7 @@ public class MainActivity extends AppCompatActivity{
         }
         Collections.sort(sortedItems, String.CASE_INSENSITIVE_ORDER);
 
+
         itemsAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         listView = (ListView) findViewById(R.id.sampleListView);
@@ -149,9 +168,22 @@ public class MainActivity extends AppCompatActivity{
                 Snackbar.make(view, bookTitle, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
+
+                AssetManager aMan = getApplicationContext().getAssets();
+                String[] listOfFiles = null;
+                try {
+                    listOfFiles = aMan.list(bookTitle);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                int total = listOfFiles.length;
+
+
                 Intent intent = new Intent(getApplicationContext(), ReadBook.class);
                 Bundle b = new Bundle();
                 b.putString("key", bookTitle);
+                b.putInt("total", total);
                 intent.putExtras(b);
                 startActivity(intent);
 

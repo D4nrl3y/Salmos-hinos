@@ -12,10 +12,16 @@
     tools:context="com.goplaychess.gobible.ReadBook">
 
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
     <TextView android:id="@+id/book_text_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbars = "vertical"
-        android:text="Hello, this is where the book content goes test." />
+        android:text="Sample book content." />
+    </ScrollView>
+
+
 
 </RelativeLayout>

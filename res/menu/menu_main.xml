@@ -9,16 +9,4 @@
         app:showAsAction="never" />
 
 
-    <item
-        android:id="@+id/action_left"
-        android:icon="@drawable/ic_left_arrow"
-        android:title="@string/previous_chapter"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_right"
-        android:icon="@drawable/ic_right_arrow"
-        android:title="@string/next_chapter"
-        app:showAsAction="ifRoom"/>
-
 </menu>
