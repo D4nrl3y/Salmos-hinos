@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Go Bible</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_ASV">ASV</string>
+    <string name="action_KJV">KJV</string>
     <string name="next_chapter">Next Chapter</string>
     <string name="previous_chapter">Previous Chapter</string>
     <string name="search_chapter">Jump to Chapter</string>

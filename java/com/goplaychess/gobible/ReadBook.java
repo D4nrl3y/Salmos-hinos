@@ -26,6 +26,7 @@ public class ReadBook extends AppCompatActivity {
     int totalChapters;
     TextView textView;
     String bookTitle = ""; // or other values
+    String bibleVersion = "ASV";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class ReadBook extends AppCompatActivity {
         if(b != null){
             bookTitle = b.getString("key");
             totalChapters = b.getInt("total");
+            bibleVersion = b.getString("version");
         }
         getSupportActionBar().setTitle(bookTitle + " " + 1);
 
@@ -111,7 +113,7 @@ public class ReadBook extends AppCompatActivity {
     public void loadNextChapter(int target){
         //reading from file and displaying in the textview
         StringBuilder stringBuilder = new StringBuilder();
-        String bookText = bookTitle + "/" + bookTitle + target + ".txt";
+        String bookText = bibleVersion + "/" + bookTitle + "/" + bookTitle + target + ".txt";
         InputStream inputStream = null;
         try {
             inputStream = getApplicationContext().getAssets().open(bookText);
