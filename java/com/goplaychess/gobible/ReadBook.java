@@ -32,7 +32,6 @@ public class ReadBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.read_book);
 
-
         Activity activity = (Activity)ReadBook.this;
         textView = (TextView)activity.findViewById(R.id.book_text_read);
         Bundle b = getIntent().getExtras();
@@ -47,8 +46,6 @@ public class ReadBook extends AppCompatActivity {
         //load the initial chapter of the book
         loadNextChapter(1);
 //      textView.setMovementMethod(new ScrollingMovementMethod());
-
-
     }
 
     @Override
@@ -70,6 +67,7 @@ public class ReadBook extends AppCompatActivity {
 
             chapter--;
             loadNextChapter(chapter);
+
             return true;
         }else if(id == R.id.action_right && chapter < totalChapters){
 
@@ -91,7 +89,7 @@ public class ReadBook extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     int specifiedChapter = Integer.parseInt(input.getText().toString());
-                    if(specifiedChapter > 0 && specifiedChapter < totalChapters){
+                    if(specifiedChapter > 0 && specifiedChapter <= totalChapters){
                         loadNextChapter(specifiedChapter);
                     }
 
@@ -106,7 +104,6 @@ public class ReadBook extends AppCompatActivity {
 
             builder.show();
         }
-
         return super.onOptionsItemSelected(item);
     }
     //loads the specified chapter of the bible when user presses next or previous button
@@ -120,6 +117,7 @@ public class ReadBook extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
 
@@ -137,5 +135,4 @@ public class ReadBook extends AppCompatActivity {
         textView.setText(stringBuilder.toString());
         chapter = target;
     }
-
 }

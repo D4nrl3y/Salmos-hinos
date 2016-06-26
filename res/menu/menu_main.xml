@@ -14,4 +14,16 @@
         android:orderInCategory="100"
         android:title="@string/action_KJV"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_Webster"
+        android:orderInCategory="100"
+        android:title="@string/action_Webster"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_World_English"
+        android:orderInCategory="100"
+        android:title="@string/action_World_English"
+        app:showAsAction="never" />
 </menu>

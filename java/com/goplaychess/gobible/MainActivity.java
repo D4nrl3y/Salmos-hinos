@@ -21,7 +21,6 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity{
 
-
     ListView listView;
     boolean sorted = false;
     ArrayAdapter<String> itemsAdapter;
@@ -29,14 +28,12 @@ public class MainActivity extends AppCompatActivity{
     ArrayAdapter<String> itemsAdapterSorted;
     String bibleVersion = "ASV";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 //        mainTextView = (TextView) findViewById(R.id.main_textview);
 //       mainTextView.setText("This is the new updated text sweet!");
@@ -104,7 +101,6 @@ public class MainActivity extends AppCompatActivity{
         items.add("Nahum");
         items.add("Habakkuk");
 
-
         items.add("Zephaniah");
         items.add("Haggai");
         items.add("Zechariah");
@@ -149,7 +145,6 @@ public class MainActivity extends AppCompatActivity{
         }
         Collections.sort(sortedItems, String.CASE_INSENSITIVE_ORDER);
 
-
         itemsAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         listView = (ListView) findViewById(R.id.sampleListView);
@@ -169,17 +164,16 @@ public class MainActivity extends AppCompatActivity{
                 Snackbar.make(view, bookTitle, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-
                 AssetManager aMan = getApplicationContext().getAssets();
                 String[] listOfFiles = null;
                 try {
-                    listOfFiles = aMan.list(bookTitle);
+                    listOfFiles = aMan.list(bibleVersion + "/" + bookTitle);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 int total = listOfFiles.length;
-
 
                 Intent intent = new Intent(getApplicationContext(), ReadBook.class);
                 Bundle b = new Bundle();
@@ -188,12 +182,8 @@ public class MainActivity extends AppCompatActivity{
                 b.putString("version", bibleVersion);
                 intent.putExtras(b);
                 startActivity(intent);
-
-
-
             }
         });
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -230,16 +220,24 @@ public class MainActivity extends AppCompatActivity{
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_ASV) {
             bibleVersion = "ASV";
+            getSupportActionBar().setTitle("Go Bible ASV");
             return true;
         }
         if (id == R.id.action_KJV) {
             bibleVersion = "KJV";
+            getSupportActionBar().setTitle("Go Bible KJV");
             return true;
         }
-
-
+        if (id == R.id.action_Webster) {
+            bibleVersion = "Webster";
+            getSupportActionBar().setTitle("Go Bible Webster");
+            return true;
+        }
+        if (id == R.id.action_World_English) {
+            bibleVersion = "WorldEnglish";
+            getSupportActionBar().setTitle("Go Bible WE");
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
