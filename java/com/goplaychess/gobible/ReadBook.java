@@ -3,11 +3,14 @@ package com.goplaychess.gobible;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,7 +22,7 @@ import java.io.InputStreamReader;
 /**
  * Created by jonc on 5/22/2016.
  */
-public class ReadBook extends AppCompatActivity {
+public class ReadBook extends AppCompatActivity implements View.OnTouchListener {
 
     //keeps track of what chapter is being read
     int chapter = 1;
@@ -27,6 +30,7 @@ public class ReadBook extends AppCompatActivity {
     TextView textView;
     String bookTitle = ""; // or other values
     String bibleVersion = "ASV";
+    private GestureDetectorCompat gestureDetector;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +49,40 @@ public class ReadBook extends AppCompatActivity {
 
         //load the initial chapter of the book
         loadNextChapter(1);
-//      textView.setMovementMethod(new ScrollingMovementMethod());
+
+        OnSwipeListener onSwipeListener = new OnSwipeListener() {
+
+            @Override
+            public boolean onSwipe(Direction direction) {
+
+                // Possible implementation
+                if (direction == Direction.left && chapter < totalChapters) {
+                    chapter++;
+                    loadNextChapter(chapter);
+                    return true;
+                } else if (direction == Direction.right && chapter > 1) {
+                    chapter--;
+                    loadNextChapter(chapter);
+                    return true;
+                }
+
+                return super.onSwipe(direction);
+            }
+        };
+
+        gestureDetector = new GestureDetectorCompat(getApplicationContext(), onSwipeListener);
+        textView.setOnTouchListener(this);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return gestureDetector.onTouchEvent(motionEvent);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        super.dispatchTouchEvent(ev);
+        return gestureDetector.onTouchEvent(ev);
     }
 
     @Override
@@ -64,13 +101,10 @@ public class ReadBook extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_left && chapter > 1) {
-
             chapter--;
             loadNextChapter(chapter);
-
             return true;
         }else if(id == R.id.action_right && chapter < totalChapters){
-
             chapter++;
             loadNextChapter(chapter);
             return true;

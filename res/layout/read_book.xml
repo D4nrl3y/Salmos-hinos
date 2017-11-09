@@ -11,7 +11,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.goplaychess.gobible.ReadBook">
 
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -21,7 +20,4 @@
         android:scrollbars = "vertical"
         android:text="Sample book content." />
     </ScrollView>
-
-
-
 </RelativeLayout>
